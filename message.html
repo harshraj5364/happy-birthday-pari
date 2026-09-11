@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Neural Oracle & Letter</title>
+  <title>A Letter For You</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body {
-      background: #07090e;
+      background: #090d16;
       color: #f8fafc;
       min-height: 100vh;
       display: flex;
@@ -16,76 +16,45 @@
       padding: 20px;
     }
     .card {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 32px;
-      padding: 34px 24px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 28px;
+      padding: 36px 26px;
       width: 100%;
       max-width: 400px;
-      box-shadow: 0 35px 70px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
     }
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
-    h2 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.3px; }
+    h2 {
+      font-size: 1.4rem;
+      letter-spacing: -0.3px;
+    }
     .badge {
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       background: rgba(56, 189, 248, 0.15);
       color: #38bdf8;
       border: 1px solid rgba(56, 189, 248, 0.3);
       padding: 3px 10px;
       border-radius: 99px;
-      font-weight: 600;
-      text-transform: uppercase;
+      font-weight: 500;
     }
-
-    .selector {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 14px;
-    }
-    .chip {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #94a3b8;
-      padding: 8px 0;
-      font-size: 0.75rem;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-    .chip.active {
-      background: #ec4899;
-      color: #fff;
-      border-color: #ec4899;
-      box-shadow: 0 4px 14px rgba(236, 72, 153, 0.3);
-    }
-
-    .terminal {
-      background: rgba(0, 0, 0, 0.45);
+    .letter-box {
+      background: rgba(0, 0, 0, 0.3);
       border-radius: 18px;
-      padding: 18px;
+      padding: 22px;
       border-left: 3px solid #ec4899;
-      min-height: 110px;
-      line-height: 1.6;
-      font-size: 0.92rem;
+      min-height: 170px;
+      line-height: 1.7;
+      font-size: 0.95rem;
       color: #e2e8f0;
-      position: relative;
-      margin-bottom: 20px;
-    }
-    .status-line {
-      font-size: 0.7rem;
-      color: #64748b;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      white-space: pre-wrap;
     }
     .cursor {
       display: inline-block;
@@ -95,106 +64,67 @@
       vertical-align: middle;
       animation: blink 0.8s infinite;
     }
-
-    .note-card {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px dashed rgba(255, 255, 255, 0.12);
-      border-radius: 16px;
-      padding: 16px;
-      font-size: 0.88rem;
+    .promise {
+      margin-top: 20px;
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(236, 72, 153, 0.08);
+      border: 1px dashed rgba(236, 72, 153, 0.3);
+      text-align: center;
+      font-size: 0.85rem;
       color: #cbd5e1;
-      line-height: 1.6;
     }
-    .note-card strong { color: #fff; }
-
-    .footer { text-align: center; margin-top: 22px; }
-    a { color: #64748b; text-decoration: none; font-size: 0.82rem; }
-    a:hover { color: #cbd5e1; }
+    .footer {
+      text-align: center;
+      margin-top: 24px;
+    }
+    .footer a {
+      color: #64748b;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer a:hover { color: #94a3b8; }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
   </style>
 </head>
 <body>
   <div class="card">
     <div class="header">
-      <h2>AI Neural Oracle</h2>
-      <span class="badge">Model: Flash</span>
+      <h2>Dear Pari,</h2>
+      <span class="badge">Unfiltered Note</span>
     </div>
 
-    <div class="selector">
-      <button class="chip active" onclick="runOracle('roast', this)">Roast Mode</button>
-      <button class="chip" onclick="runOracle('wholesome', this)">Wholesome</button>
-      <button class="chip" onclick="runOracle('horoscope', this)">Year Forecast</button>
+    <div class="letter-box">
+      <span id="typed-text"></span><span class="cursor" id="cursor"></span>
     </div>
 
-    <div class="terminal">
-      <div class="status-line" id="statusLine">Synthesizing...</div>
-      <span id="oracleText"></span><span class="cursor" id="cursor"></span>
-    </div>
-
-    <div class="note-card">
-      <p><strong>Personal Note:</strong> Whatever changes or stays the same this year, keep backing yourself. I've always got your back. Happy Birthday, Pari.</p>
+    <div class="promise">
+      ⚡ Lifetime Warranty: Valid for emergency life advice, treats, and someone in your corner always.
     </div>
 
     <div class="footer">
-      <a href="index.html">🔒 Lock Vault & Restart</a>
+      <a href="index.html">↺ Start from beginning</a>
     </div>
   </div>
 
   <script>
-    const pool = {
-      roast: [
-        "Analysis complete: Scientists confirm you have officially completed another orbit without acquiring any common sense.",
-        "System query: At this age, you are legally obligated to stop blaming your bad decisions on being 'young and confused.'",
-        "Prophecy: You will spend at least 42% of your upcoming year staring blankly at your wardrobe complaining you have nothing to wear."
-      ],
-      wholesome: [
-        "Core finding: You bring unmatched energy and genuine laughs wherever you go. Keep shining without apology.",
-        "Prediction: You are entering your highest-growth season yet. Trust your instincts, they're sharper than you let on.",
-        "Status: Having you around makes everything distinctly better. Happy birthday to the real one."
-      ],
-      horoscope: [
-        "Forecast: Stellar alignment points toward unexpected wins, late-night tea sessions, and big personal progress ahead.",
-        "Forecast: 99% probability of spontaneous adventures and zero tolerance for unnecessary drama this year.",
-        "Forecast: Clear skies ahead. Stop second-guessing your moves and let the results speak for themselves."
-      ]
-    };
+    const fullMessage = "Happy Birthday!\n\nNever doubt what you are capable of building for yourself. Through all the chaos, arguments, and quiet support, I'm always proud of the person you're turning into.\n\nKeep shining, keep laughing, and have the best year ahead.";
+    let index = 0;
+    const speed = 32;
 
-    let typingTimer = null;
-
-    function runOracle(vibe, el) {
-      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-
-      const textArray = pool[vibe];
-      const selected = textArray[Math.floor(Math.random() * textArray.length)];
-
-      const status = document.getElementById("statusLine");
-      const output = document.getElementById("oracleText");
-      const cursor = document.getElementById("cursor");
-
-      clearTimeout(typingTimer);
-      output.textContent = "";
-      cursor.style.display = "inline-block";
-      status.textContent = "Querying Neural Network...";
-
-      setTimeout(() => {
-        status.textContent = `Mode: [${vibe.toUpperCase()}] • Verified`;
-        let i = 0;
-        function write() {
-          if (i < selected.length) {
-            output.textContent += selected.charAt(i);
-            i++;
-            typingTimer = setTimeout(write, 26);
-          } else {
-            cursor.style.display = "none";
-          }
-        }
-        write();
-      }, 300);
+    function typeWriter() {
+      if (index < fullMessage.length) {
+        document.getElementById("typed-text").textContent += fullMessage.charAt(index);
+        index++;
+        setTimeout(typeWriter, speed);
+      } else {
+        document.getElementById("cursor").style.display = "none";
+      }
     }
 
     window.addEventListener("load", () => {
-      runOracle('roast', document.querySelector('.chip.active'));
+      setTimeout(typeWriter, 400);
     });
   </script>
 </body>
