@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Classified Delivery</title>
+  <title>A Special Surprise</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; user-select: none; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body {
-      background: #07090e;
+      background: #090d16;
       color: #f8fafc;
       min-height: 100vh;
       display: flex;
@@ -17,73 +17,73 @@
       overflow: hidden;
       position: relative;
     }
-    .orb { position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; opacity: 0.35; }
-    .orb-1 { width: 320px; height: 320px; background: #ec4899; top: -50px; left: -50px; }
-    .orb-2 { width: 260px; height: 260px; background: #6366f1; bottom: -40px; right: -40px; }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.45;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .orb-1 { width: 280px; height: 280px; background: #ec4899; top: 10%; left: 15%; }
+    .orb-2 { width: 240px; height: 240px; background: #6366f1; bottom: 15%; right: 15%; }
 
     .card {
       position: relative;
       z-index: 10;
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 32px;
-      padding: 36px 24px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 28px;
+      padding: 44px 28px;
       width: 100%;
-      max-width: 340px;
+      max-width: 380px;
       text-align: center;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
-    .lock-icon { font-size: 2.4rem; margin-bottom: 12px; display: inline-block; }
-    h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
-    p { color: #64748b; font-size: 0.85rem; margin-bottom: 24px; }
-
-    /* Passcode dots */
-    .dots { display: flex; justify-content: center; gap: 14px; margin-bottom: 28px; }
-    .dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.25);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .dot.filled {
-      background: #ec4899;
-      border-color: #ec4899;
-      box-shadow: 0 0 12px #ec4899;
-      transform: scale(1.15);
-    }
-
-    /* Keypad Grid */
-    .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 260px; margin: 0 auto; }
-    .key {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #fff;
-      font-size: 1.3rem;
-      font-weight: 600;
-      height: 62px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .gift-btn {
+      background: none;
+      border: none;
+      font-size: 4.5rem;
       cursor: pointer;
-      transition: all 0.15s;
+      display: inline-block;
+      margin-bottom: 20px;
+      animation: float 2.6s ease-in-out infinite;
+      transition: transform 0.2s;
     }
-    .key:active {
-      background: rgba(236, 72, 153, 0.4);
-      border-color: #ec4899;
-      transform: scale(0.92);
+    .gift-btn:active { transform: scale(0.88); }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #fff 40%, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .key.action { font-size: 0.85rem; color: #94a3b8; }
-
-    /* Shake on wrong PIN */
-    .shake { animation: shake 0.4s ease-in-out; }
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-12px); }
-      40%, 80% { transform: translateX(12px); }
+    p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    .btn-action {
+      display: inline-block;
+      background: linear-gradient(135deg, #ec4899, #d946ef);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      padding: 14px 34px;
+      border-radius: 999px;
+      box-shadow: 0 8px 24px rgba(236, 72, 153, 0.35);
+      border: none;
+      cursor: pointer;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(3deg); }
     }
   </style>
 </head>
@@ -91,107 +91,33 @@
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
 
-  <div class="card" id="lockCard">
-    <div class="lock-icon" id="lockIcon">🔒</div>
-    <h1>Identity Verification</h1>
-    <p>Enter passkey to decrypt birthday package</p>
-
-    <div class="dots">
-      <div class="dot" id="d0"></div>
-      <div class="dot" id="d1"></div>
-      <div class="dot" id="d2"></div>
-      <div class="dot" id="d3"></div>
-    </div>
-
-    <div class="keypad">
-      <button class="key" onclick="press(1)">1</button>
-      <button class="key" onclick="press(2)">2</button>
-      <button class="key" onclick="press(3)">3</button>
-      <button class="key" onclick="press(4)">4</button>
-      <button class="key" onclick="press(5)">5</button>
-      <button class="key" onclick="press(6)">6</button>
-      <button class="key" onclick="press(7)">7</button>
-      <button class="key" onclick="press(8)">8</button>
-      <button class="key" onclick="press(9)">9</button>
-      <button class="key action" onclick="clearPin()">CLR</button>
-      <button class="key" onclick="press(0)">0</button>
-      <button class="key action" onclick="del()">⌫</button>
-    </div>
+  <div class="card">
+    <button class="gift-btn" onclick="playChime()">🎁</button>
+    <h1>Special Delivery</h1>
+    <p>Incoming transmission for the official favorite sister. Tap below to verify identity.</p>
+    <button class="btn-action" onclick="unlock()">Unlock Surprise →</button>
   </div>
 
   <script>
-    const CORRECT_PIN = "2510";
-    let input = "";
-    const card = document.getElementById("lockCard");
-    const lockIcon = document.getElementById("lockIcon");
-
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    function tone(freq, type = 'sine', len = 0.08) {
+    function playChime() {
       if (ctx.state === 'suspended') ctx.resume();
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, ctx.currentTime);
-      gain.gain.setValueAtTime(0.2, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + len);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.3);
+      gain.gain.setValueAtTime(0.3, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start();
-      osc.stop(ctx.currentTime + len);
+      osc.stop(ctx.currentTime + 0.5);
     }
 
-    function renderDots() {
-      for (let i = 0; i < 4; i++) {
-        const dot = document.getElementById(`d${i}`);
-        if (i < input.length) {
-          dot.classList.add("filled");
-        } else {
-          dot.classList.remove("filled");
-        }
-      }
-    }
-
-    function press(n) {
-      if (input.length >= 4) return;
-      tone(440 + n * 40);
-      input += n;
-      renderDots();
-
-      if (input.length === 4) {
-        setTimeout(verify, 150);
-      }
-    }
-
-    function del() {
-      if (input.length > 0) {
-        tone(320);
-        input = input.slice(0, -1);
-        renderDots();
-      }
-    }
-
-    function clearPin() {
-      tone(280);
-      input = "";
-      renderDots();
-    }
-
-    function verify() {
-      if (input === CORRECT_PIN) {
-        lockIcon.textContent = "🔓";
-        tone(523, 'triangle', 0.12);
-        setTimeout(() => tone(659, 'triangle', 0.12), 100);
-        setTimeout(() => tone(783, 'triangle', 0.25), 200);
-        setTimeout(() => { window.location.href = "wish.html"; }, 500);
-      } else {
-        card.classList.add("shake");
-        tone(150, 'sawtooth', 0.25);
-        setTimeout(() => {
-          card.classList.remove("shake");
-          input = "";
-          renderDots();
-        }, 450);
-      }
+    function unlock() {
+      playChime();
+      setTimeout(() => { window.location.href = 'wish.html'; }, 300);
     }
   </script>
 </body>
